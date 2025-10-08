@@ -94,6 +94,45 @@ async function fetchGrades(studentId) {
 }
 
 
+// generates grade json containing only useful info
+function generateGrades(gradeList) {
+  try {
+    // create list
+    let usefulGradeList = { "items": [] };
+
+    // loop through all grades
+    for (let i = 0; i < gradeList.items.length; i++) {
+      // for readability
+      let grade = gradeList.items[i];
+
+      // append dict to list
+      usefulGradeList.items.push(
+        {
+          "vakNaam": grade.vak.naam,
+          "vakAfkorting": grade.vak.afkorting,
+          "omschrijving": grade.beschrijving,
+          "type": grade.type,
+          //not sure about the difference between resultaat & geldendResultaat
+          "resultaat": grade.resultaat,
+          "geldendResultaat": grade.geldendResultaat,
+          "datumInvoer": grade.datumInvoer,
+          "leerjaar": grade.leerjaar,
+          "periode": grade.periode,
+          "weging": grade.weging,
+          "examenWeging": grade.examenWeging,
+          "isExamendossierResultaat": grade.isExamendossierResultaat,
+          "isVoortgangsdossierResultaat": grade.isVoortgangsdossierResultaat
+        }
+      );
+    }
+
+    return usefulGradeList;  
+
+  } catch (err) {
+    //catches errors
+    console.error("Request failed:", err.message);
+  }
+}
 
 async function main() {
   // fetch student json
@@ -102,47 +141,60 @@ async function main() {
   // fetch grades json
   const GRADES = await fetchGrades(STUDENT.items[0].links[0].id);
 
+  const USEFULGRADES = generateGrades(GRADES);
+
+  console.log(JSON.stringify(USEFULGRADES));
+
   // log data for each grade
-  for (let i = 0; i < GRADES.items.length; i++) {
+  for (let i = 0; i < USEFULGRADES.items.length; i++) {
     // log vak naam
-    console.log(`\n\n${i}:\n${GRADES.items[i].vak.naam}`);
+    console.log(`\n\n${i}:\nNaam: ${USEFULGRADES.items[i].vakNaam}`);
+
+    // log afkorting
+    console.log(`Afkorting: ${USEFULGRADES.items[i].vakAfkorting}`); 
 
     // log omschrijving if it exists
-    if (typeof GRADES.items[i].omschrijving !== "undefined") {
-      console.log(`Omschrijving: ${GRADES.items[i].omschrijving}`);
+    if (typeof USEFULGRADES.items[i].omschrijving !== "undefined") {
+      console.log(`Omschrijving: ${USEFULGRADES.items[i].omschrijving}`);
     }
 
+    // log type
+    console.log(`Type: ${USEFULGRADES.items[i].type}`);
+
     // log resultaat if it exists
-    if (typeof GRADES.items[i].resultaat !== "undefined") {
-      console.log(`Resultaat: ${GRADES.items[i].resultaat}`);
+    if (typeof USEFULGRADES.items[i].resultaat !== "undefined") {
+      console.log(`Resultaat: ${USEFULGRADES.items[i].resultaat}`);
     }
 
     // log geldendResultaat if it exists
-    if (typeof GRADES.items[i].geldendResultaat !== "undefined") {
-      console.log(`Geldend Resultaat: ${GRADES.items[i].geldendResultaat}`);
+    if (typeof USEFULGRADES.items[i].geldendResultaat !== "undefined") {
+      console.log(`Geldend Resultaat: ${USEFULGRADES.items[i].geldendResultaat}`);
     }
 
+    // log datumInvoer
+    console.log(`Datum Invoer: ${USEFULGRADES.items[i].datumInvoer}`)
+
     // log leerjaar
-    console.log(`Leerjaar: ${GRADES.items[i].leerjaar}`);
+    console.log(`Leerjaar: ${USEFULGRADES.items[i].leerjaar}`);
 
     // log periode
-    console.log(`Periode: ${GRADES.items[i].periode}`);
+    console.log(`Periode: ${USEFULGRADES.items[i].periode}`);
 
     // log weging if it exists
-    if (typeof GRADES.items[i].weging !== "undefined") {
-      console.log(`Weging: ${GRADES.items[i].weging}`);
+    if (typeof USEFULGRADES.items[i].weging !== "undefined") {
+      console.log(`Weging: ${USEFULGRADES.items[i].weging}`);
     }    
 
     // log examenWeging if it exists
-    if (typeof GRADES.items[i].examenWeging !== "undefined") {
-      console.log(`Examen Weging: ${GRADES.items[i].examenWeging}`);
+    if (typeof USEFULGRADES.items[i].examenWeging !== "undefined") {
+      console.log(`Examen Weging: ${USEFULGRADES.items[i].examenWeging}`);
     }    
 
     // log if it counts towards examens
-    console.log(`Examendossier: ${GRADES.items[i].isExamendossierResultaat}`);
+    console.log(`Examendossier: ${USEFULGRADES.items[i].isExamendossierResultaat}`);
 
     // log if it counts towards overgang 
-    console.log(`Voortgangsdossier: ${GRADES.items[i].isVoortgangsdossierResultaat}`);
+    console.log(`Voortgangsdossier: ${USEFULGRADES.items[i].isVoortgangsdossierResultaat}`);
   }
 }
 
