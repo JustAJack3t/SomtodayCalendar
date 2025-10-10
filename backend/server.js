@@ -314,62 +314,6 @@ async function main() {
 
   // fetch homework json
   const HOMEWORK = await fetchHomework(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
-  console.log("homework:", JSON.stringify(HOMEWORK));
-
-  /*
-  console.log(JSON.stringify(USEFULGRADES));
-
-  // log data for each grade
-  for (let i = 0; i < USEFULGRADES.items.length; i++) {
-    // log vak naam
-    console.log(`\n\n${i}:\nNaam: ${USEFULGRADES.items[i].vakNaam}`);
-
-    // log afkorting
-    console.log(`Afkorting: ${USEFULGRADES.items[i].vakAfkorting}`); 
-
-    // log omschrijving if it exists
-    if (typeof USEFULGRADES.items[i].omschrijving !== "undefined") {
-      console.log(`Omschrijving: ${USEFULGRADES.items[i].omschrijving}`);
-    }
-
-    // log type
-    console.log(`Type: ${USEFULGRADES.items[i].type}`);
-
-    // log resultaat if it exists
-    if (typeof USEFULGRADES.items[i].resultaat !== "undefined") {
-      console.log(`Resultaat: ${USEFULGRADES.items[i].resultaat}`);
-    }
-
-    // log geldendResultaat if it exists
-    if (typeof USEFULGRADES.items[i].geldendResultaat !== "undefined") {
-      console.log(`Geldend Resultaat: ${USEFULGRADES.items[i].geldendResultaat}`);
-    }
-
-    // log datumInvoer
-    console.log(`Datum Invoer: ${USEFULGRADES.items[i].datumInvoer}`)
-
-    // log leerjaar
-    console.log(`Leerjaar: ${USEFULGRADES.items[i].leerjaar}`);
-
-    // log periode
-    console.log(`Periode: ${USEFULGRADES.items[i].periode}`);
-
-    // log weging if it exists
-    if (typeof USEFULGRADES.items[i].weging !== "undefined") {
-      console.log(`Weging: ${USEFULGRADES.items[i].weging}`);
-    }    
-
-    // log examenWeging if it exists
-    if (typeof USEFULGRADES.items[i].examenWeging !== "undefined") {
-      console.log(`Examen Weging: ${USEFULGRADES.items[i].examenWeging}`);
-    }    
-
-    // log if it counts towards examens
-    console.log(`Examendossier: ${USEFULGRADES.items[i].isExamendossierResultaat}`);
-
-    // log if it counts towards overgang 
-    console.log(`Voortgangsdossier: ${USEFULGRADES.items[i].isVoortgangsdossierResultaat}`);
-  }*/
 }
 
 main();
