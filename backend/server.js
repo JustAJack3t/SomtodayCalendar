@@ -34,13 +34,13 @@ async function fetchStudent(somtoday_key) {
 
   } catch (err) {
     // catches other errors
-    console.error("Request failed:", err.message);
+    console.error("Request fetchStudent() failed:", err.message);
   }
 }
 
 
 // fetches grades json's and returns merged grade json
-async function fetchGrades(studentId) {
+async function fetchGrades(studentId, somtoday_key) {
   try {
     // vars
     let lowerBound = 0;
@@ -54,7 +54,7 @@ async function fetchGrades(studentId) {
         `${initialUrl}/rest/v1/resultaten/huidigVoorLeerling/${studentId}`, {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${SOMTODAY_KEY}`,
+            "Authorization": `Bearer ${somtoday_key}`,
             "Range": `items=${lowerBound}-${upperBound}`,
             "Accept": "application/json",
           }
@@ -88,11 +88,178 @@ async function fetchGrades(studentId) {
     return fullResponse;
 
   } catch (err) {
-    //catches other errors
-    console.error("Request failed:", err.message);
+    // catches other errors
+    console.error("Request fetchGrades() failed:", err.message);
   }  
 }
 
+
+// fetch homework json
+async function fetchHomework(studentId, somtoday_key) {
+  // appointment homework
+  try {
+    const responseAppointment = await fetch(
+      `${initialUrl}/rest/v1/studiewijzeritemafspraaktoekenningen?begintNaOfOp=2025-10-09&geenDifferentiatieOfGedifferentieerdVoorLeerling=${studentId}&additional=huiswerkgemaakt`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${somtoday_key}`,
+          "Accept": "application/json",
+        }
+      }
+    )
+
+    // throws http error
+    if (!responseAppointment.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const responseDay = await fetch(
+      `${initialUrl}/rest/v1/studiewijzeritemdagtoekenningen?begintNaOfOp=2025-10-09&geenDifferentiatieOfGedifferentieerdVoorLeerling=${studentId}&additional=huiswerkgemaakt`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${somtoday_key}`,
+          "Accept": "application/json",
+        }
+      }
+    )
+
+    // throws http error
+    if (!responseDay.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }   
+
+    const responseWeek = await fetch(
+      `${initialUrl}/rest/v1/studiewijzeritemweektoekenningen?begintNaOfOp=2025-10-09&geenDifferentiatieOfGedifferentieerdVoorLeerling=${studentId}&additional=huiswerkgemaakt`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${somtoday_key}`,
+          "Accept": "application/json",
+        }
+      }
+    )
+
+    // throws http error
+    if (!responseWeek.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // converts response to json
+    const appointmentJson = await responseAppointment.json();
+    const dayJson = await responseDay.json();
+    const weekJson = await responseWeek.json();
+
+    // make empty lists
+    const appointmentData = { "items": [] }
+    const dayData = { "items": [] }
+    const weekData = { "items": [] }
+
+    // loop through appointment homework
+    for (let i = 0; i < appointmentJson.items.length; i++) {
+      // for readability
+      let appointment = appointmentJson.items[i];
+
+      // push dict to list
+      appointmentData.items.push(
+        {
+          // huiswerk info
+          "huiswerkDatum": appointment.datumTijd,
+          "huiswerkGemaakt": appointment.additionalObjects.huiswerkGemaakt,
+          "huiswerkId": appointment.studiewijzerItem.links[0].id,
+          "huiswerkType": appointment.studiewijzerItem.huiswerkType,
+          "huiswerkOnderwerp": appointment.studiewijzerItem.onderwerp,
+          "huiswerkOmschrijving": appointment.studiewijzerItem.omschrijving,
+          "huiswerkLeerdoelen": appointment.studiewijzerItem.leerdoelen,
+
+          // huiswerk bijlagen
+          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
+          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : "undefined",
+
+          // inleveropdrachten
+          "isInleverOpdracht": appointment.studiewijzerItem.isInleverperiodes,
+          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : "undefined",
+          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : "undefined",
+          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : "undefined",
+          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : "undefined",
+        }
+      )
+    }
+
+    // loop through day homework
+    for (let i = 0; i < dayJson.items.length; i++) {
+      // for readability
+      let appointment = dayJson.items[i];
+
+      // push dict to list
+      dayData.items.push(
+        {
+          // huiswerk info
+          "huiswerkDatum": appointment.datumTijd,
+          "huiswerkGemaakt": appointment.additionalObjects.huiswerkGemaakt,
+          "huiswerkId": appointment.studiewijzerItem.links[0].id,
+          "huiswerkType": appointment.studiewijzerItem.huiswerkType,
+          "huiswerkOnderwerp": appointment.studiewijzerItem.onderwerp,
+          "huiswerkOmschrijving": appointment.studiewijzerItem.omschrijving,
+          "huiswerkLeerdoelen": appointment.studiewijzerItem.leerdoelen,
+
+          // huiswerk bijlagen
+          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
+          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : "undefined",
+
+          // inleveropdrachten
+          "isInleverOpdracht": appointment.studiewijzerItem.isInleverperiodes,
+          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : "undefined",
+          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : "undefined",
+          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : "undefined",
+          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : "undefined",
+        }
+      )
+    }    
+
+    // loop through week homework
+    for (let i = 0; i < weekJson.items.length; i++) {
+      // for readability
+      let appointment = weekJson.items[i];
+
+      // push dict to list
+      weekData.items.push(
+        {
+          // huiswerk info
+          "huiswerkWeek": appointment.weeknummerVanaf,
+          "huiswerkGemaakt": appointment.additionalObjects.huiswerkGemaakt,
+          "huiswerkId": appointment.studiewijzerItem.links[0].id,
+          "huiswerkType": appointment.studiewijzerItem.huiswerkType,
+          "huiswerkOnderwerp": appointment.studiewijzerItem.onderwerp,
+          "huiswerkOmschrijving": appointment.studiewijzerItem.omschrijving,
+          "huiswerkLeerdoelen": appointment.studiewijzerItem.leerdoelen,
+
+          // huiswerk bijlagen
+          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
+          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : "undefined",
+
+          // inleveropdrachten
+          "isInleverOpdracht": appointment.studiewijzerItem.isInleverperiodes,
+          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : "undefined",
+          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : "undefined",
+          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : "undefined",
+          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : "undefined",
+        }
+      )
+    }
+
+    // merges homework types into one list
+    const data = { "types": {
+      "appointment": appointmentData,
+      "day": dayData,
+      "week": weekData
+    } }
+
+    return data;
+
+  } catch (err) {
+    // catches other errors
+    console.error("Request fetchHomework() failed:", err.message, err);
+  }  
+}
 
 // generates grade json containing only useful info
 function generateGrades(gradeList) {
@@ -134,15 +301,22 @@ function generateGrades(gradeList) {
   }
 }
 
+
 async function main() {
   // fetch student json
   const STUDENT = await fetchStudent(SOMTODAY_KEY);
 
   // fetch grades json
-  const GRADES = await fetchGrades(STUDENT.items[0].links[0].id);
+  const GRADES = await fetchGrades(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
 
+  // simplifies grades json
   const USEFULGRADES = generateGrades(GRADES);
 
+  // fetch homework json
+  const HOMEWORK = await fetchHomework(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
+  console.log("homework:", JSON.stringify(HOMEWORK));
+
+  /*
   console.log(JSON.stringify(USEFULGRADES));
 
   // log data for each grade
@@ -195,7 +369,7 @@ async function main() {
 
     // log if it counts towards overgang 
     console.log(`Voortgangsdossier: ${USEFULGRADES.items[i].isVoortgangsdossierResultaat}`);
-  }
+  }*/
 }
 
 main();
