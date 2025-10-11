@@ -84,8 +84,37 @@ async function fetchGrades(studentId, somtoday_key) {
       upperBound += 100;
     }
 
-    // returns json with all grades
-    return fullResponse;
+    // make empty list
+    let gradeData = { "items": [] };
+
+    // loop through all grades
+    for (let i = 0; i < fullResponse.items.length; i++) {
+      // for readability
+      let grade = fullResponse.items[i];
+
+      // append dict to list
+      gradeData.items.push(
+        {
+          "vakNaam": grade.vak.naam,
+          "vakAfkorting": grade.vak.afkorting,
+          "omschrijving": grade.beschrijving,
+          "type": grade.type,
+          //not sure about the difference between resultaat & geldendResultaat
+          "resultaat": grade.resultaat,
+          "geldendResultaat": grade.geldendResultaat,
+          "datumInvoer": grade.datumInvoer,
+          "leerjaar": grade.leerjaar,
+          "periode": grade.periode,
+          "weging": grade.weging,
+          "examenWeging": grade.examenWeging,
+          "isExamendossierResultaat": grade.isExamendossierResultaat,
+          "isVoortgangsdossierResultaat": grade.isVoortgangsdossierResultaat
+        }
+      );
+    }
+
+    // returns json with only the useful data of all the grades
+    return gradeData;  
 
   } catch (err) {
     // catches other errors
@@ -261,46 +290,6 @@ async function fetchHomework(studentId, somtoday_key) {
   }  
 }
 
-// generates grade json containing only useful info
-function generateGrades(gradeList) {
-  try {
-    // create list
-    let usefulGradeList = { "items": [] };
-
-    // loop through all grades
-    for (let i = 0; i < gradeList.items.length; i++) {
-      // for readability
-      let grade = gradeList.items[i];
-
-      // append dict to list
-      usefulGradeList.items.push(
-        {
-          "vakNaam": grade.vak.naam,
-          "vakAfkorting": grade.vak.afkorting,
-          "omschrijving": grade.beschrijving,
-          "type": grade.type,
-          //not sure about the difference between resultaat & geldendResultaat
-          "resultaat": grade.resultaat,
-          "geldendResultaat": grade.geldendResultaat,
-          "datumInvoer": grade.datumInvoer,
-          "leerjaar": grade.leerjaar,
-          "periode": grade.periode,
-          "weging": grade.weging,
-          "examenWeging": grade.examenWeging,
-          "isExamendossierResultaat": grade.isExamendossierResultaat,
-          "isVoortgangsdossierResultaat": grade.isVoortgangsdossierResultaat
-        }
-      );
-    }
-
-    return usefulGradeList;  
-
-  } catch (err) {
-    //catches errors
-    console.error("Request failed:", err.message);
-  }
-}
-
 
 async function main() {
   // fetch student json
@@ -308,9 +297,6 @@ async function main() {
 
   // fetch grades json
   const GRADES = await fetchGrades(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
-
-  // simplifies grades json
-  const USEFULGRADES = generateGrades(GRADES);
 
   // fetch homework json
   const HOMEWORK = await fetchHomework(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
