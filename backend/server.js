@@ -202,15 +202,15 @@ async function fetchHomework(studentId, somtoday_key) {
           "huiswerkGemaakt": appointment.additionalObjects.huiswerkgemaakt != null ? appointment.additionalObjects.huiswerkgemaakt.items[0].huiswerkGemaakt : false,
 
           // huiswerk bijlagen
-          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
-          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : "undefined",
+          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : undefined,
+          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : undefined,
 
           // inleveropdrachten
           "isInleverOpdracht": appointment.studiewijzerItem.isInleverperiodes,
-          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : "undefined",
-          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : "undefined",
-          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : "undefined",
-          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : "undefined",
+          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : undefined,
+          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : undefined,
+          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : undefined,
+          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : undefined,
         }
       )
     }
@@ -235,15 +235,15 @@ async function fetchHomework(studentId, somtoday_key) {
           "huiswerkGemaakt": appointment.additionalObjects.huiswerkgemaakt != null ? appointment.additionalObjects.huiswerkgemaakt.items[0].huiswerkGemaakt : false,
 
           // huiswerk bijlagen
-          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
-          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : "undefined",
+          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : undefined,
+          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : undefined,
 
           // inleveropdrachten
           "isInleverOpdracht": appointment.studiewijzerItem.isInleverperiodes,
-          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : "undefined",
-          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : "undefined",
-          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : "undefined",
-          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : "undefined",
+          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : undefined,
+          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : undefined,
+          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : undefined,
+          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : undefined,
         }
       )
     }    
@@ -268,15 +268,15 @@ async function fetchHomework(studentId, somtoday_key) {
           "huiswerkGemaakt": appointment.additionalObjects.huiswerkgemaakt != null ? appointment.additionalObjects.huiswerkgemaakt.items[0].huiswerkGemaakt : false,
 
           // huiswerk bijlagen
-          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
-          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : "undefined",
+          "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : undefined,
+          "huiswerkBijlageUrl": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].assemblyResults[0].fileUrl : undefined,
 
           // inleveropdrachten
           "isInleverOpdracht": appointment.studiewijzerItem.isInleverperiodes,
-          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : "undefined",
-          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : "undefined",
-          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : "undefined",
-          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : "undefined",
+          "inleverOpdrachtStart": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].startGeldigheid : undefined,
+          "inleverOpdrachtEinde": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].eindGeldigheid : undefined,
+          "inleverOpdrachtPlagiaatDetectie": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].plagiaatDetectie : undefined,
+          "inleverOpdrachtAantalItemsIngeleverd": typeof appointment.studiewijzerItem.inlevermomenten[0] !== "undefined" ? appointment.studiewijzerItem.inlevermomenten[0].inleveringenAantal : undefined,
         }
       )
     }
