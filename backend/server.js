@@ -192,12 +192,14 @@ async function fetchHomework(studentId, somtoday_key) {
         {
           // huiswerk info
           "huiswerkDatum": appointment.datumTijd,
-          "huiswerkGemaakt": appointment.additionalObjects.huiswerkGemaakt,
           "huiswerkId": appointment.studiewijzerItem.links[0].id,
           "huiswerkType": appointment.studiewijzerItem.huiswerkType,
           "huiswerkOnderwerp": appointment.studiewijzerItem.onderwerp,
           "huiswerkOmschrijving": appointment.studiewijzerItem.omschrijving,
           "huiswerkLeerdoelen": appointment.studiewijzerItem.leerdoelen,
+
+          // additional objects
+          "huiswerkGemaakt": appointment.additionalObjects.huiswerkgemaakt != null ? appointment.additionalObjects.huiswerkgemaakt.items[0].huiswerkGemaakt : false,
 
           // huiswerk bijlagen
           "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
@@ -223,12 +225,14 @@ async function fetchHomework(studentId, somtoday_key) {
         {
           // huiswerk info
           "huiswerkDatum": appointment.datumTijd,
-          "huiswerkGemaakt": appointment.additionalObjects.huiswerkGemaakt,
           "huiswerkId": appointment.studiewijzerItem.links[0].id,
           "huiswerkType": appointment.studiewijzerItem.huiswerkType,
           "huiswerkOnderwerp": appointment.studiewijzerItem.onderwerp,
           "huiswerkOmschrijving": appointment.studiewijzerItem.omschrijving,
           "huiswerkLeerdoelen": appointment.studiewijzerItem.leerdoelen,
+
+          // additional objects
+          "huiswerkGemaakt": appointment.additionalObjects.huiswerkgemaakt != null ? appointment.additionalObjects.huiswerkgemaakt.items[0].huiswerkGemaakt : false,
 
           // huiswerk bijlagen
           "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
@@ -254,12 +258,14 @@ async function fetchHomework(studentId, somtoday_key) {
         {
           // huiswerk info
           "huiswerkWeek": appointment.weeknummerVanaf,
-          "huiswerkGemaakt": appointment.additionalObjects.huiswerkGemaakt,
           "huiswerkId": appointment.studiewijzerItem.links[0].id,
           "huiswerkType": appointment.studiewijzerItem.huiswerkType,
           "huiswerkOnderwerp": appointment.studiewijzerItem.onderwerp,
           "huiswerkOmschrijving": appointment.studiewijzerItem.omschrijving,
           "huiswerkLeerdoelen": appointment.studiewijzerItem.leerdoelen,
+
+          // additional objects
+          "huiswerkGemaakt": appointment.additionalObjects.huiswerkgemaakt != null ? appointment.additionalObjects.huiswerkgemaakt.items[0].huiswerkGemaakt : false,
 
           // huiswerk bijlagen
           "huiswerkBijlagenOmschrijving": typeof appointment.studiewijzerItem.bijlagen[0] !== "undefined" ? appointment.studiewijzerItem.bijlagen[0].omschrijving : "undefined",
