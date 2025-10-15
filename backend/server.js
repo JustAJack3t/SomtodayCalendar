@@ -297,15 +297,82 @@ async function fetchHomework(studentId, somtoday_key) {
 }
 
 
+// fetch timetable json
+async function fetchTimetable(somtoday_key, startDate, endDate) {
+  try {
+    const response = await fetch(
+      `${initialUrl}/rest/v1/afspraken?sort=asc-id&begindatum=${startDate}&einddatum=${endDate}&additional=vak&additional=docentAfkortingen&additional=leerlingen`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${somtoday_key}`,
+          "Accept": "application/json",
+        }
+      }
+    );
+    
+    // throws http error
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // convert response to json
+    let responseJson = await response.json();
+
+    // make empty lists
+    let returnJson = { "items": [] };
+
+    // loop through timetable items
+    for (let i = 0; i < responseJson.items.length; i++) {
+      // for readability
+      let timetableItem = responseJson.items[i];
+
+      // push dict to list
+      returnJson.items.push(
+        {
+          // Vak
+          "vakNaam": timetableItem.additionalObjects.vak != null ? timetableItem.additionalObjects.vak.naam : undefined,
+          "vakAfkorting": timetableItem.additionalObjects.vak != null ? timetableItem.additionalObjects.vak.afkorting : undefined,
+
+          // Docent
+          "docentAfkortingen": timetableItem.additionalObjects.docentAfkortingen,
+
+          // Afspraak type
+          "afspraakNaam": timetableItem.afspraakType.naam,
+          "afspraakOmschrijving": timetableItem.afspraakType.omschrijving,
+
+          // Datum en tijd
+          "beginDatumTijd": timetableItem.beginDatumTijd,
+          "eindDatumTijd": timetableItem.eindDatumTijd,
+
+          // Info
+          "titel": timetableItem.titel,
+          "omschrijving": timetableItem.omschrijving,
+          "locatie": timetableItem.locatie
+        }
+      )
+    }
+
+    return returnJson;
+
+  } catch (err) {
+    // catches other errors
+    console.error("Request fetchTimetable() failed:", err.message);    
+  }
+
+}
+
 async function main() {
   // fetch student json
-  const STUDENT = await fetchStudent(SOMTODAY_KEY);
+  // const STUDENT = await fetchStudent(SOMTODAY_KEY);
 
   // fetch grades json
-  const GRADES = await fetchGrades(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
+  // const GRADES = await fetchGrades(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
 
   // fetch homework json
-  const HOMEWORK = await fetchHomework(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
+  // const HOMEWORK = await fetchHomework(STUDENT.items[0].links[0].id, SOMTODAY_KEY);
+
+  // fetch timetable json
+  // const TIMETABLE = await fetchTimetable(SOMTODAY_KEY, "2025-10-13", "2025-10-19");
 }
 
 main();
