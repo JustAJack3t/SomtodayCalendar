@@ -1,4 +1,4 @@
-const { Client } = require("pg");
+const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
 
 // import env variables
@@ -12,7 +12,7 @@ const DATABASE = process.env.DBDATABASE;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
 // connect to database
-const client = new Client({
+const pool = new Pool({
     host: HOST,
     user: USER,
     port: PORT,
@@ -20,7 +20,6 @@ const client = new Client({
     database: DATABASE
 });
 
-client.connect();
 
 async function createUser(firstName, lastName, eMail, password) {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
@@ -28,17 +27,14 @@ async function createUser(firstName, lastName, eMail, password) {
     const dbQuery = `INSERT INTO users (email, password_hash, first_name, last_name) VALUES ($1, $2, $3, $4);`;
 
     try {
-        await client.query(dbQuery, [eMail, hashedPassword, firstName, lastName]);
+        await pool.query(dbQuery, [eMail, hashedPassword, firstName, lastName]);
         return true;
 
     } catch (error) {
         
-        console.log(`An error occured: ${error.message}\n`);
+        console.log(`An error occured at models/register_account.js: ${error.message}\n`);
         return false;
     }
-    
-
-    await client.end();
 }
 
 module.exports = createUser;

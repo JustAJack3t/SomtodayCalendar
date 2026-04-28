@@ -3,3 +3,6 @@ backend/node_modules/
 
 # Environment files
 backend/.env
+
+# Keys (have no purpose to exist other than my dementia):
+backend/keys

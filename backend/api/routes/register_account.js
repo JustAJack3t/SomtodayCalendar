@@ -2,13 +2,8 @@ const express = require("express");
 const router = express.Router();
 const createAccount = require("./../models/register_account.js");
 
-// import env variables
-const dotenv = require('dotenv');
-dotenv.config({ path: './../../.env' });
-const PORT = process.env.PORT;
 
-
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     // parse the body
     const { firstName, lastName, eMail, password } = req.body;
 
@@ -18,7 +13,7 @@ router.post("/", (req, res) => {
     }
 
     // create account
-    const result = createAccount(firstName, lastName, eMail, password);
+    const result = await createAccount(firstName, lastName, eMail, password);
 
     // catch errors
     if (result === false) {
@@ -26,7 +21,7 @@ router.post("/", (req, res) => {
     }
 
     // send res
-    res.json({ message: "Account created"});
+    res.status(200).json({ message: "Account created"});
 });
 
 module.exports = router;
