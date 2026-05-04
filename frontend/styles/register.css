@@ -17,8 +17,40 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
+.loadingAnimationBox {
+  height: 3px;
+  width: 27.5vw;
+}
+
+@keyframes loading {
+  0% {
+    margin-right: 60%;
+    margin-left: 0%;
+  }
+
+  50% {
+    margin-right: 0%;
+    margin-left: 60%;
+  }
+
+  100% {
+    margin-right: 60%;
+    margin-left: 0%;
+  }
+}
+
+.loadingBar {
+  height: 100%;
+  width: 40%;
+  animation-name: loading;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  transition: all 0.3s ease; 
+}
 
 .loginBox {
   background-color: rgb(49, 49, 49);
@@ -34,7 +66,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  
 }
 
 #infoContainer {
@@ -101,17 +132,23 @@ body {
 
   padding-left: 1.5%;
   border-radius: 8px;
-  border-style: solid;
+  border-style: solid; 
   border-color: rgb(31, 31, 31);
 }
 
-.inputBox:focus{
+.inputBox:focus {
   outline: 3px solid rgb(112, 252, 158);
   outline-offset: -3px;
   transition: all 0.3s ease-in-out;
 }
 
-.inputBox:not(:focus):hover{
+.inputBox:not(:focus):hover {
+  border-color: rgba(0, 0, 0, 0) !important;
   outline: 3px solid rgb(31, 31, 31);
   outline-offset: -3px;
+}
+
+.errorMessage {
+  color: rgb(255, 88, 88);
+  position: absolute;
 }

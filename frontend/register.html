@@ -11,6 +11,10 @@
 </head>
 <body>
     
+    <div class="loadingAnimationBox">
+        <div class="loadingBar" id="loadingBar"></div>
+    </div>
+
     <!-- Register Box -->
      <div class="loginBox">
 
@@ -20,11 +24,13 @@
         </div>
         
         <div id="inputContainer">
-            <input type="text" class="inputBox" id="firstName" placeholder="First Name">
-            <input type="text" class="inputBox" id="lastName" placeholder="Last Name">
-            <input type="email" class="inputBox" id="eMail" placeholder="E-mailadress">
-            <input type="password" class="inputBox" id="password" placeholder="Password">
+            <input type="text" class="inputBox" id="firstNameInput" placeholder="First Name">
+            <input type="text" class="inputBox" id="lastNameInput" placeholder="Last Name">
+            <input type="email" class="inputBox" id="eMailInput" placeholder="E-mailaddress">
+            <input type="password" class="inputBox" id="passwordInput" placeholder="Password">
         </div>
+
+        <p class="errorMessage" id="errorMessage"></p>
 
         <button id="createButton">Create Account</button>
 
@@ -35,4 +41,5 @@
      </div>
 
 </body>
+<script src="scripts/register.js"></script>
 </html>
