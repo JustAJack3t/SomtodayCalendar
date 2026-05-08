@@ -5,24 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login HwCalendar</title>
-    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" type="png" href="assets/logo.png">
 
 </head>
 <body>
 
     <!-- Login box -->
-     <div id="loginBox" class="loginBox">
+     <div class="mainBox loginBox">
     
         <div id="infoContainer">
             <h1 class="loginText">Sign In</h1>
             <p id="loginInfo" class="loginText">Sign Into Your HwCalendar Account</p>
         </div>
         
-        <div id="inputContainer">
-            <input type="email" class="inputBox" id="eMail" placeholder="E-mailaddress">
-            <input type="password" class="inputBox" id="password" placeholder="Password">
+        <div class="inputContainer loginInputContainer">
+            <input type="email" class="inputBox loginInputBox" id="eMail" placeholder="E-mailaddress">
+            <input type="password" class="inputBox loginInputBox" id="password" placeholder="Password">
         </div>
+
+        <p class="errorMessage" id="errorMessage"></p>
 
         <button id="loginButton">Sign In</button>
 
@@ -34,4 +36,5 @@
      </div>
 
 </body>
+<script src="scripts/login.js"></script>
 </html>
