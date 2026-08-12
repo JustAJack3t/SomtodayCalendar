@@ -1,0 +1,27 @@
+.mainBox {
+  width: 30vw;
+  height: 60vh;
+}
+
+
+#registerInfo {
+  font-size: 15px;
+}
+
+
+.inputContainer {
+  height: 42%;
+  width: 100%;
+}
+
+
+#createButton {
+  width: 35%;
+  height: 8%;
+}
+
+
+.inputBox {
+  height: 20%;
+  width: 50%;
+}
