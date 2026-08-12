@@ -1,0 +1,27 @@
+.mainBox {
+  width: 30vw;
+  height: 50vh;
+}
+
+
+#loginInfo {
+  font-size: 15px;
+}
+
+
+.inputContainer {
+  height: 25%;
+  width: 100%;
+}
+
+
+#loginButton {
+  width: 25%;
+  height: 10%;
+}
+
+
+.inputBox {
+  height: 40%;
+  width: 50%;
+}
