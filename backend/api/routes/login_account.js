@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     }
 
     // create user
-    const user = { userid: await getUser(eMail) };
+    const user = await getUser(eMail);
 
     // decode jwt private key
     const JWT_PRIVATE_KEY = Buffer.from(JWT_PRIVATE_KEY_BASE64, 'base64').toString();

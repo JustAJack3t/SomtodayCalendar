@@ -22,7 +22,7 @@ const pool = new Pool({
 async function getUser(eMail) {
     // create database query
     const dbQuery = `
-    SELECT user_id FROM users
+    SELECT user_id, first_name, last_name FROM users
     WHERE email = $1;`;
 
     try {
@@ -30,9 +30,13 @@ async function getUser(eMail) {
     const result = await pool.query(dbQuery, [eMail]);
 
     // parse the result
-    const user_id = result.rows[0].user_id;
+    const user = { 
+        "userId": result.rows[0].user_id,
+        "firstName": result.rows[0].first_name,
+        "lastName": result.rows[0].last_name
+    }
 
-    return user_id;
+    return user;
 
     } catch (error) {
 

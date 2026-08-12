@@ -47,7 +47,11 @@ async function loginAccount(userEMail, userPassword) {
             }, 2000)
         });
 
-        return status;
+        if (status === 0) {
+            window.location.href = "/frontend/home.html"
+        } else {
+            return status;
+        }
 
     } catch (error) {
         stopAnimation();
@@ -69,10 +73,29 @@ async function tokenLogin(csrfToken) {
         const data = await result.json();   
         console.log(data);
 
-        return 0;
+        window.location.href = "/frontend/home.html"
 
     } catch (error) {
         return 2;
+    }
+}
+
+function findCsrf() {
+    let cookie = document.cookie;
+
+    if (cookie.includes("csrf_token")) {
+        let clist = [];
+        clist = document.cookie.split("; ");
+
+        for (let i = 0; i < clist.length; i++) {
+            if (clist[i].includes("csrf_token")) {
+                let csrfToken = clist[i].split("=")[1];
+
+                return csrfToken;
+            }
+        }
+    } else {
+        return false;
     }
 }
 
@@ -126,21 +149,8 @@ loginButton.addEventListener("click", () => {
 });
 
 
-// execute when page loads
-let cookie = document.cookie;
-
-if (cookie.includes("csrf_token")) {
-    let clist = [];
-    clist = document.cookie.split("; ");
-
-    for (let i = 0; i < clist.length; i++) {
-        if (clist[i].includes("csrf_token")) {
-            let csrfToken = clist[i].split("=")[1];
-
-            tokenLogin(csrfToken)
-        }
-    }
-}
-
-
-
+//execute when page loads:
+let csrfToken = findCsrf();
+if (csrfToken) {
+    tokenLogin(csrfToken)
+} 
