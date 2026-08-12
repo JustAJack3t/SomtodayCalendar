@@ -10,9 +10,14 @@
 
 </head>
 <body>
+    
+    <!-- Animation box -->
+    <div class="loadingAnimationBox">
+        <div class="loadingBar" id="loadingBar"></div>
+    </div>
 
     <!-- Login box -->
-     <div class="mainBox loginBox">
+    <div class="mainBox loginBox">
     
         <div id="infoContainer">
             <h1 class="loginText">Sign In</h1>
@@ -20,8 +25,8 @@
         </div>
         
         <div class="inputContainer loginInputContainer">
-            <input type="email" class="inputBox loginInputBox" id="eMail" placeholder="E-mailaddress">
-            <input type="password" class="inputBox loginInputBox" id="password" placeholder="Password">
+            <input type="email" class="inputBox loginInputBox" id="eMailInput" placeholder="E-mailaddress">
+            <input type="password" class="inputBox loginInputBox" id="passwordInput" placeholder="Password">
         </div>
 
         <p class="errorMessage" id="errorMessage"></p>
@@ -33,7 +38,7 @@
             <span>Don't have an account? <a href="register.html">Create One</a></span>
         </div>
 
-     </div>
+    </div>
 
 </body>
 <script src="scripts/login.js"></script>

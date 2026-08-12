@@ -27,6 +27,7 @@ app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", req.headers.origin);
     }
 
+    res.header("Access-Control-Allow-Credentials", true);
     res.header("Access-Control-Allow-Headers", "X-Csrf-Token, Content-Type, origin");
 
     if (req.method === "OPTIONS") {
