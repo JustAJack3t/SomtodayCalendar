@@ -26,19 +26,37 @@ async function createAccount(userFirstName, userLastName, userEMail, userPasswor
                 eMail: userEMail,
                 password: userPassword
             }),
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            credentials: "include"
         });
 
-        setTimeout(() => {
 
-            if (!result.ok) return 2;
+        const status = await new Promise((resolve) => {
+            setTimeout(async () => {
+                if (result.status == 401) {
+                    resolve(3); 
+                    stopAnimation();
+                    return;
+                }
+                else if (!result.ok) {
+                    resolve(2); 
+                    stopAnimation();
+                    return;
+                }
 
-        console.log(result);
-        stopAnimation();
+                const data = await result.json();
+                console.log(data);
+                stopAnimation();
 
-        return 0;
+                resolve(0);
+            }, 2000)
+        });
 
-        }, 2000);
+        if (status === 0) {
+            window.location.href = "/frontend/home.html"
+        } else {
+            return status;
+        }
 
     } catch (error) {
         stopAnimation();
