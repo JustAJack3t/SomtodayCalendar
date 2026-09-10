@@ -1,7 +1,9 @@
 // Document variables
 const greetText = document.getElementById("greetText");
 const infoText = document.getElementById("infoText");
-
+const navbarCalendar = document.getElementById("navbarCalendar");
+const navbarHome = document.getElementById("navbarHome");
+const navbarSettings = document.getElementById("navbarSettings");
 
 
 // Functions
@@ -60,6 +62,18 @@ async function handleLogin() {
 function renderData(user) {
     greetText.innerHTML = `Welcome ${user.firstName} ${user.lastName}`;
 }
+
+
+
+//event listeners
+navbarCalendar.addEventListener("click", () => {
+    window.location.href = "/frontend/calendar.html"
+});
+
+
+navbarSettings.addEventListener("click", () => {
+    window.location.href = "/frontend/settings.html"
+});
 
 
 

@@ -49,9 +49,6 @@ router.post("/", async (req, res) => {
     // create csrf token
     const csrfToken = crypto.randomBytes(32).toString("hex");
 
-    console.log(jwtToken);
-    console.log(csrfToken);
-
     // send jwt cookie
     res.cookie("acces_token", jwtToken, {
         httpOnly: true,
