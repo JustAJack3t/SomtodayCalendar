@@ -1,0 +1,38 @@
+body {
+    flex-direction: column;
+    justify-content:stretch;
+}
+
+.hwInfoContainer {
+    flex: 1;
+    margin-bottom: 10%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.homepageBox {
+    height: 70%;
+    border-radius: 25px;
+    background-color: rgb(47, 47, 47);
+    border: 3px solid rgb(88, 110, 207);
+
+    display: flex;
+    justify-content: center;
+
+    padding: 10px;
+}
+
+.hwTomorrowContainer {
+    width: 30vw;
+}
+
+.hwProgressContainer {
+    width: 20vw;
+}
+
+.hwOverdueContainer {
+    width: 30vw;
+}
